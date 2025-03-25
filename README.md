@@ -11,7 +11,7 @@ This would be a monolithic service, handling user data and authentication, datab
 TypeScript based technologies:
  - Node
  - Express
- - NestJs
+ - **NestJs**
 
 ~~Java based:~~
  - ~~Spring~~
@@ -37,9 +37,9 @@ Development schedule includes:
  - Project and repository setup
 
 ## *26.03*
- - Project architecture
- - Final decision on technologies
- - Data flow
+ - Project architecture: WIP [Architecture Documentation](https://www.figma.com/board/YKhDVSi0130tMWITvWPboY/Pathfinder-Helper-Diagrams?node-id=0-1&t=dyMGR9pxb3Eriu6A-1)
+ - Final decision on technologies: NestJs and MySQL, Swagger if there is time, depending on progress minimalistic frontend or integration with Angular app 
+ - Data flow: See **Architecture Documentation**
 
 ## *02.04*
  - Technology specific learning
