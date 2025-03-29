@@ -18,7 +18,7 @@ TypeScript based technologies:
  - ~~Spring Boot~~
 
 Database:
- - MongoDB?
+ - ~~MongoDB~~
  - ~~Postgress~~
  - **MySQL**
 
