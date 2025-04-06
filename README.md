@@ -43,20 +43,22 @@ Development schedule includes:
 
 ## *02.04*
  - Technology specific learning
-
-## *09.04*
  - Database setup
  - Initial entrypoint setup
 
-## *16.04*
+## *09.04*
+ - Technology specific learning
  - User authentication
  - User roles
 
-## *23.04*
+## *16.04*
  - General CRUD
 
-## *30.04*
+## *23.04*
  - Resource specific CRUD
+
+## *30.04*
+  - Character sheet handling
 
 ## *07.05*
  - Swagger setup 
