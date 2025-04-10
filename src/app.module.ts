@@ -8,6 +8,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { GameModule } from './resources/game/game.module';
 import { CharacterModule } from './resources/character/character.module';
+import { AuthService } from './services/auth/auth.service';
 
 @Module({
   imports: [
@@ -30,6 +31,6 @@ import { CharacterModule } from './resources/character/character.module';
     CharacterModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AuthService],
 })
 export class AppModule {}
