@@ -7,7 +7,6 @@ import { UserModule } from './resources/user/user.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { GameModule } from './resources/game/game.module';
-import { AuthService } from './services/auth/auth.service';
 import { CharacterModule } from './resources/character/character.module';
 import { RequireRoleGuard } from './common/guards/require-role/require-role.guard';
 import { LoggerMiddleware } from './middlewares/logger/logger.middleware';
@@ -34,7 +33,7 @@ import { UserMiddleware } from './middlewares/user/user.middleware';
     CharacterModule,
   ],
   controllers: [AppController],
-  providers: [AppService, AuthService],
+  providers: [AppService]
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

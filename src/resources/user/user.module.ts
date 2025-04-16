@@ -6,11 +6,12 @@ import { User } from './entities/user.entity';
 import { UserAuth } from './entities/user_auth.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { UserGame } from './entities/user_game.entity';
+import { AuthService } from 'src/services/auth/auth.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User, UserAuth, UserGame]), JwtModule],
   controllers: [UserController],
-  providers: [UserService],
-  exports: [UserService],
+  providers: [UserService, AuthService],
+  exports: [UserService, AuthService],
 })
 export class UserModule {}

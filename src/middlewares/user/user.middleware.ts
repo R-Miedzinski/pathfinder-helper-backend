@@ -6,6 +6,11 @@ export class UserMiddleware implements NestMiddleware {
   constructor(private readonly authService: AuthService) {}
 
   public use(req: any, res: any, next: () => void) {
+    if (!req.headers) {
+      console.log('No headers provided');
+      return next();
+    }
+
     const token = this.extractTokenFromHeader(req);
     if (token) {
       const decoded = this.authService.decodeToken(token);
@@ -16,8 +21,8 @@ export class UserMiddleware implements NestMiddleware {
     next();
   }
 
-  private extractTokenFromHeader(request: Request): string | undefined {
-    const [type, token] = request.headers.get('authorization')?.split(' ') ?? [];
+  private extractTokenFromHeader(request: any): string | undefined {
+    const [type, token] = request.headers['authorization']?.split(' ') ?? [];
     return type === 'Bearer' ? token : undefined;
   }
 }

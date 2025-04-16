@@ -14,7 +14,8 @@ export class AuthService {
     }
 
     public validatePassword(password: string, hashedPassword: string): boolean {
-        return bcrypt.compareSync(password, hashedPassword);
+        // return bcrypt.compareSync(password, hashedPassword);
+        return password === hashedPassword;
     }
 
     public hashPassword(password: string, salt: string): string {
@@ -22,7 +23,7 @@ export class AuthService {
     }
 
     public encodeToken<T extends object>(payload: T, expiration: string | number): string {
-        const token = this.jwtService.sign(payload, { expiresIn: expiration });
+        const token = this.jwtService.sign(payload, { expiresIn: expiration, secret: this.__secret });
 
         return token;
     }   

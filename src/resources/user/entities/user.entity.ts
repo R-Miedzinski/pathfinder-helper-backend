@@ -16,12 +16,6 @@ export class User {
     @Column()
     username: string;
 
-    // @Column()
-    // password: string;
-
-    // @Column()
-    // salt: string;
-
     @ManyToMany(() => Game, (game) => game.players)
     @JoinTable({ 
         name: 'User_Game',
@@ -41,7 +35,4 @@ export class User {
 
     @Column({ default: true })
     active: boolean;
-
-    // @Column()
-    // update_history: string[];
 }

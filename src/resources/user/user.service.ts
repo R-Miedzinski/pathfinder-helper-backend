@@ -6,6 +6,7 @@ import { Auth, Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { UserAuth } from './entities/user_auth.entity';
 import { LoginDto } from './dto/login.dto';
+import { EUserRoles } from '../../common/enums/user-roles.enum';
 
 import * as bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
@@ -42,8 +43,7 @@ export class UserService {
       password: hashedPassword,
       salt,
     });
-
-
+    
     // Create user
     const user = this.userRepository.create({
       id: userId,
@@ -52,6 +52,12 @@ export class UserService {
       role: EUserRoles.USER,
       active: true
     });
+    
+    // Save user
+    await this.userRepository.save(user);
+
+    // Save user auth
+    await this.userAuthRepository.save(userAuth);
   }
 
   public async findAll() {
@@ -84,7 +90,6 @@ export class UserService {
       await this.userRepository.update(id, { username: updateUserDto.username });
     }
 
-    //TODO: add gameId to user relations tables
     if (updateUserDto.gameId) {
       // Check if gameId already assigned
       const gameId = updateUserDto.gameId;
@@ -133,14 +138,13 @@ export class UserService {
 
       // Compare password with hashed password using salt
       const hashedPassword = this.authService.hashPassword(password, userAuth.salt);
-
       const isPasswordValid = this.authService.validatePassword(hashedPassword, userAuth.password);
 
       if (!isPasswordValid) {
         throw new UnauthorizedException('Invalid credentials');
       }
 
-      const payload = user;
+      const payload = JSON.parse(JSON.stringify(user));
       const token = this.authService.encodeToken(payload, '1h');
       return {
         access_token: token,
