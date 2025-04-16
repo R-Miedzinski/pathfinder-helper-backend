@@ -10,12 +10,14 @@ import { LoginDto } from './dto/login.dto';
 import * as bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
 import { AuthService } from 'src/services/auth/auth.service';
+import { UserGame } from './entities/user_game.entity';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
     @InjectRepository(UserAuth) private readonly userAuthRepository: Repository<UserAuth>,
+    @InjectRepository(UserGame) private readonly userGameRepository: Repository<UserGame>,
     private readonly authService: AuthService
   ) {}
 
@@ -82,14 +84,28 @@ export class UserService {
       await this.userRepository.update(id, { username: updateUserDto.username });
     }
 
-    //TODO: add gameId and characterId to user relations tables
+    //TODO: add gameId to user relations tables
+    if (updateUserDto.gameId) {
+      // Check if gameId already assigned
+      const gameId = updateUserDto.gameId;
+
+      const game = await this.userGameRepository.findOne({ where: { user_id: id, game_id: gameId } });
+      if (!game) {
+        const userGame = this.userGameRepository.create({
+          user_id: id,
+          game_id: gameId,
+        });
+
+        await this.userGameRepository.save(userGame);
+      }
+    }
 
     return `This action updates a #${id} user`;
   }
 
-  public remove(id: string) {
+  public async remove(id: string) {
     // set active to false
-    this.userRepository.update(id, { active: false });
+    await this.userRepository.update(id, { active: false });
     return `This action removes a #${id} user`;
   }
 
