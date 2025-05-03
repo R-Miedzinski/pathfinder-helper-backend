@@ -1,4 +1,10 @@
-import { MiddlewareConsumer, Module, NestModule, Req, RequestMethod } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  Req,
+  RequestMethod,
+} from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
@@ -12,6 +18,7 @@ import { RequireRoleGuard } from './common/guards/require-role/require-role.guar
 import { LoggerMiddleware } from './middlewares/logger/logger.middleware';
 import { UserMiddleware } from './middlewares/user/user.middleware';
 import { TraitModule } from './resources/trait/trait.module';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -35,10 +42,18 @@ import { TraitModule } from './resources/trait/trait.module';
     TraitModule,
   ],
   controllers: [AppController],
-  providers: [AppService]
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: RequireRoleGuard,
+    },
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(UserMiddleware, LoggerMiddleware).forRoutes({path: '*', method: RequestMethod.ALL});
+    consumer
+      .apply(UserMiddleware, LoggerMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }

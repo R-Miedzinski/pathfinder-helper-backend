@@ -6,21 +6,19 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
 } from '@nestjs/common';
 import { TraitService } from './trait.service';
 import { CreateTraitDto } from './dto/create-trait.dto';
 import { UpdateTraitDto } from './dto/update-trait.dto';
-import { RequireRoleGuard } from 'src/common/guards/require-role/require-role.guard';
 import { EUserRoles } from 'src/common/enums/user-roles.enum';
+import { Roles } from 'src/common/decorators/roles.decorator';
 
-@UseGuards(new RequireRoleGuard(EUserRoles.USER))
 @Controller('trait')
 export class TraitController {
   constructor(private readonly traitService: TraitService) {}
 
-  @UseGuards(new RequireRoleGuard(EUserRoles.ADMIN))
   @Post()
+  @Roles(EUserRoles.ADMIN)
   public create(@Body() createTraitDto: CreateTraitDto) {
     return this.traitService.create(createTraitDto);
   }
@@ -36,6 +34,7 @@ export class TraitController {
   }
 
   @Patch(':id')
+  @Roles(EUserRoles.ADMIN)
   public update(
     @Param('id') id: string,
     @Body() updateTraitDto: UpdateTraitDto,
@@ -43,8 +42,8 @@ export class TraitController {
     return this.traitService.update(id, updateTraitDto);
   }
 
-  @UseGuards(new RequireRoleGuard(EUserRoles.ADMIN))
   @Delete(':id')
+  @Roles(EUserRoles.ADMIN)
   public remove(@Param('id') id: string) {
     return this.traitService.remove(id);
   }
