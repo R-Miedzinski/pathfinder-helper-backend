@@ -11,6 +11,7 @@ import { CharacterModule } from './resources/character/character.module';
 import { RequireRoleGuard } from './common/guards/require-role/require-role.guard';
 import { LoggerMiddleware } from './middlewares/logger/logger.middleware';
 import { UserMiddleware } from './middlewares/user/user.middleware';
+import { TraitModule } from './resources/trait/trait.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { UserMiddleware } from './middlewares/user/user.middleware';
     UserModule,
     GameModule,
     CharacterModule,
+    TraitModule,
   ],
   controllers: [AppController],
   providers: [AppService]
