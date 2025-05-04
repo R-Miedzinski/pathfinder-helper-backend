@@ -8,5 +8,6 @@ import { Trait } from './entities/trait.entity';
   imports: [TypeOrmModule.forFeature([Trait])],
   controllers: [TraitController],
   providers: [TraitService],
+  exports: [TraitService],
 })
 export class TraitModule {}

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateTraitDto } from './dto/create-trait.dto';
 import { UpdateTraitDto } from './dto/update-trait.dto';
 import { Trait } from './entities/trait.entity';
-import { Repository } from 'typeorm';
+import { Repository, In } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ETraitContext } from 'src/common/enums/trait-context.enum';
 import { TraitDto } from './dto/trait.dto';
@@ -39,7 +39,7 @@ export class TraitService {
       ...createTraitDto,
       id: uuidv4(),
       active: true,
-      date_created: new Date(),
+      dateCreated: new Date(),
     };
 
     const trait = this.traitRepository.create(enriched_trait);
@@ -53,6 +53,25 @@ export class TraitService {
    */
   public findAll(): Promise<Trait[]> {
     return this.traitRepository.find({ where: { active: true } });
+  }
+
+  /**
+   * Finds all traits by their IDs and returns them with the specified context.
+   * @param ids - An array of trait IDs.
+   * @param context - The context in which to find the traits.
+   * @returns An array of TraitDto objects containing the traits' details.
+   */
+  public findAllWithContext(
+    ids: string[],
+    context: ETraitContext,
+  ): Promise<TraitDto[]> {
+    return this.traitRepository
+      .findBy({ id: In(ids), active: true })
+      .then((traits) => {
+        return traits.map((trait) => {
+          return this.toDtoWithContext(trait, context);
+        });
+      });
   }
 
   /**
@@ -90,18 +109,7 @@ export class TraitService {
         return null;
       }
 
-      // Check if the context is valid
-      let traitDescription = trait[this.contextToKeyMap[context]];
-      if (!traitDescription) {
-        traitDescription = trait.default_description;
-      }
-
-      return {
-        id: trait.id,
-        name: trait.name,
-        description: traitDescription,
-        context,
-      } as TraitDto;
+      return this.toDtoWithContext(trait, context);
     });
   }
 
@@ -138,5 +146,27 @@ export class TraitService {
         return `Trait with ID ${id} has been deactivated`;
       });
     });
+  }
+
+  /**
+   * Converts a Trait entity to a TraitDto object.
+   * @param trait - The Trait entity to convert.
+   * @param context - The context in which to convert the trait.
+   * @returns The converted TraitDto object.
+   */
+  public toDtoWithContext(trait: Trait, context: ETraitContext): TraitDto {
+    let traitDescription = trait[this.contextToKeyMap[context]];
+
+    // Check if the context is valid
+    if (!traitDescription) {
+      traitDescription = trait.default_description;
+    }
+
+    return {
+      id: trait.id,
+      name: trait.name,
+      description: traitDescription,
+      context,
+    } as TraitDto;
   }
 }
