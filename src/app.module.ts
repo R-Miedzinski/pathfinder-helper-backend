@@ -19,6 +19,7 @@ import { LoggerMiddleware } from './middlewares/logger/logger.middleware';
 import { UserMiddleware } from './middlewares/user/user.middleware';
 import { TraitModule } from './resources/trait/trait.module';
 import { APP_GUARD } from '@nestjs/core';
+import { SpellModule } from './resources/spell/spell.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { APP_GUARD } from '@nestjs/core';
     GameModule,
     CharacterModule,
     TraitModule,
+    SpellModule,
   ],
   controllers: [AppController],
   providers: [
