@@ -20,6 +20,7 @@ import { UserMiddleware } from './middlewares/user/user.middleware';
 import { TraitModule } from './resources/trait/trait.module';
 import { APP_GUARD } from '@nestjs/core';
 import { SpellModule } from './resources/spell/spell.module';
+import { ActionModule } from './resources/action/action.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { SpellModule } from './resources/spell/spell.module';
     CharacterModule,
     TraitModule,
     SpellModule,
+    ActionModule,
   ],
   controllers: [AppController],
   providers: [
