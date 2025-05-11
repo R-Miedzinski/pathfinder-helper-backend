@@ -73,7 +73,7 @@ export class SpellService {
   }
 
   /**
-   * Find all spells and transforms traits to contextual DTOs
+   * Find all spells and transform traits to contextual DTOs
    * @returns An array of spells with their traits transformed to appropriate DTOs
    */
   public findAllWithContext(): Promise<SpellDto[]> {
