@@ -1,0 +1,17 @@
+export enum ESkills {
+  ACROBATICS = 'Acrobatics',
+  ANIMAL_HANDLING = 'Animal Handling',
+  ARCANA = 'Arcana',
+  ATHLETICS = 'Athletics',
+  CRAFTING = 'Crafting',
+  DECEPTION = 'Deception',
+  DIPLOMACY = 'Diplomacy',
+  INTIMIDATION = 'Intimidation',
+  PERCEPTION = 'Perception',
+  PERFORMANCE = 'Performance',
+  RELIGION = 'Religion',
+  SOCIETY = 'Society',
+  STEALTH = 'Stealth',
+  SURVIVAL = 'Survival',
+  THIEVERY = 'Thievery',
+}
