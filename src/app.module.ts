@@ -22,6 +22,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { SpellModule } from './resources/spell/spell.module';
 import { ActionModule } from './resources/action/action.module';
 import { CharacterClassModule } from './resources/character-class/character-class.module';
+import { FeatModule } from './resources/feat/feat.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { CharacterClassModule } from './resources/character-class/character-clas
     SpellModule,
     ActionModule,
     CharacterClassModule,
+    FeatModule,
   ],
   controllers: [AppController],
   providers: [
