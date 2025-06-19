@@ -37,35 +37,6 @@ export class FeatService {
       return Promise.reject(`Failed to create feat with id ${id}`);
     }
 
-    // Handle ManyToMany relationships
-
-    // if (savedFeat.traits?.length) {
-    //   const traits = savedFeat.traits.map((trait) => trait.id);
-    //   await this.featRepository
-    //     .createQueryBuilder()
-    //     .relation(Feat, 'traits')
-    //     .of(savedFeat)
-    //     .add(traits);
-    // }
-
-    // if (savedFeat.actionsGranted?.length) {
-    //   const actions = savedFeat.actionsGranted.map((action) => action.id);
-    //   await this.featRepository
-    //     .createQueryBuilder()
-    //     .relation(Feat, 'actionsGranted')
-    //     .of(savedFeat)
-    //     .add(actions);
-    // }
-
-    // if (savedFeat.spellsGranted?.length) {
-    //   const spells = savedFeat.spellsGranted.map((spell) => spell.id);
-    //   await this.featRepository
-    //     .createQueryBuilder()
-    //     .relation(Feat, 'spellsGranted')
-    //     .of(savedFeat)
-    //     .add(spells);
-    // }
-
     // Handle OneToOne relationships
 
     if (savedFeat.featProficiencies) {
