@@ -30,7 +30,6 @@ export class FeatService {
     };
 
     this.featRepository.create(enriched_feat);
-
     const savedFeat = await this.featRepository.save(enriched_feat);
 
     if (!savedFeat) {

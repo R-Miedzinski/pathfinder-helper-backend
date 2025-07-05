@@ -23,6 +23,8 @@ import { SpellModule } from './resources/spell/spell.module';
 import { ActionModule } from './resources/action/action.module';
 import { CharacterClassModule } from './resources/character-class/character-class.module';
 import { FeatModule } from './resources/feat/feat.module';
+import { BackgroundModule } from './resources/background/background.module';
+import { RaceModule } from './resources/race/race.module';
 
 @Module({
   imports: [
@@ -48,6 +50,8 @@ import { FeatModule } from './resources/feat/feat.module';
     ActionModule,
     CharacterClassModule,
     FeatModule,
+    BackgroundModule,
+    RaceModule,
   ],
   controllers: [AppController],
   providers: [
